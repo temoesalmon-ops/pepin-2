@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Valentine ?</title>
+
+  <style>
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      margin:0;
+      background:#fff5f7;
+    }
+    .card{
+      max-width:520px;
+      margin:10vh auto;
+      background:#fff;
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+      text-align:center;
+    }
+    h1{margin:0 0 12px;font-size:28px;}
+    p{margin:0 0 18px;font-size:16px;line-height:1.5;}
+
+    .btns{display:flex;gap:12px;margin-top:18px;}
+    a.btn, button.btn{
+      flex:1;
+      padding:14px 12px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:16px;
+      border:none;
+      cursor:pointer;
+    }
+    a.yes{
+      background:#ff2d55;
+      color:#fff;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    button.no{
+      background:#111827;
+      color:#fff;
+    }
+
+    .error{
+      display:none;
+      margin-top:16px;
+      font-size:14px;
+      color:#b91c1c;
+    }
+
+    .shake{animation:shake .35s;}
+    @keyframes shake{
+      0%{transform:translateX(0);}
+      25%{transform:translateX(-5px);}
+      50%{transform:translateX(5px);}
+      75%{transform:translateX(-5px);}
+      100%{transform:translateX(0);}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card" id="card">
+    <h1>ð¹ PÃ©pin, tu veux Ãªtre ma Valentine ?</h1>
+    <p>RÃ©flÃ©chis bien avant de rÃ©pondre ð</p>
+
+    <div class="btns">
+      <a class="btn yes" href="reponse.html?choice=oui">Oui</a>
+      <!-- NON: pas de lien, donc impossible de "valider" -->
+      <button class="btn no" id="noBtn" type="button">Non</button>
+    </div>
+
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const errorMsg = document.getElementById("errorMsg");
+    const card = document.getElementById("card");
+
+    const messages = [
+      "â DÃ©solÃ© PÃ©pin, le bouton Â« Non Â» nâexiste pas.",
+      "ð« Choix invalide. Merci de sÃ©lectionner Â« Oui Â» ð",
+      "ð PÃ©pinâ¦ ce bouton est dÃ©coratif.",
+      "ð Non indisponible. Oui recommandÃ©. Merci.",
+      "ð¤¨ Mauvais bouton. Le bon est en rose."
+    ];
+
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // bloque toute action âpar rÃ©flexeâ
+      const random = messages[Math.floor(Math.random() * messages.length)];
+      errorMsg.textContent = random;
+      errorMsg.style.display = "block";
+
+      if (navigator.vibrate) navigator.vibrate(150);
+
+      card.classList.remove("shake");
+      void card.offsetWidth;
+      card.classList.add("shake");
+    });
+  </script>
+</body>
+</html>
